@@ -1,0 +1,38 @@
+.container {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    height: calc(30vh - 4rem);
+  }
+  
+  .form {
+    display: flex; 
+    width: 100%;
+    max-width: 500px;
+    gap: 0.3rem;
+  }
+  
+  input {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #646cff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #535bf2;
+  }
+  
