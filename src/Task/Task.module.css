@@ -13,9 +13,11 @@
   height: auto; 
 }
 
-  
+.buttonContainer {
+  display: flex;
+  gap: 5px;
+}
   .taskButton {
-    background-color: #ff4d4d;
     color: white;
     border: none;
     border-radius: 3px;
@@ -24,8 +26,28 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
+
+  .deleteButton {
+    background-color: #ff4d4d;
+  }
   
-  .taskButton:hover {
+  .deleteButton:hover {
     background-color: #e60000;
+  }
+
+  .upButton {
+    background-color: #268ad5;
+  }
+
+  .downButton {
+    background-color: #d56626;
+  }
+
+  .upButton:hover {
+    background-color: #262fd5;
+  }
+
+  .downButton:hover {
+    background-color: #d53726;
   }
   
