@@ -13,41 +13,62 @@
   height: auto; 
 }
 
+.taskItem {
+  
+}
+
 .buttonContainer {
   display: flex;
   gap: 5px;
 }
-  .taskButton {
-    color: white;
-    border: none;
-    border-radius: 3px;
-    padding: 0.3rem 0.6rem;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
 
-  .deleteButton {
-    background-color: #ff4d4d;
-  }
+.taskButton {
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.editButton {
+  background-color: #b4dff0;
+}
   
-  .deleteButton:hover {
-    background-color: #e60000;
-  }
+.editButton:hover {
+  background-color: #5bc5ee;
+}
 
-  .upButton {
-    background-color: #268ad5;
-  }
+.saveButton {
+  background-color: #b098ef;
+}
+  
+.saveButton:hover {
+  background-color: #794ceb;
+}
 
-  .downButton {
-    background-color: #d56626;
-  }
+.deleteButton {
+  background-color: #e68383;
+}
+  
+.deleteButton:hover {
+  background-color: #e60000;
+}
 
-  .upButton:hover {
-    background-color: #262fd5;
-  }
+.upButton {
+  background-color: #268ad5;
+}
 
-  .downButton:hover {
-    background-color: #d53726;
-  }
+.downButton {
+  background-color: #d56626;
+}
+
+.upButton:hover {
+  background-color: #262fd5;
+}
+
+.downButton:hover {
+  background-color: #d53726;
+}
   
