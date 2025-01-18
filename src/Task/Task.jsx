@@ -5,7 +5,8 @@ function Task({task, onEdit, onDelete, onUp, onDown}) {
     const [isEditing, setIsEditing] = useState(false);
     const [newTitle, setNewTitle] = useState(task.title);
 
-    const handleSave = () => {
+    const handleSave = (e) => {
+        e.preventDefault();
         if (newTitle.trim() === "") {
             setIsEditing(false);
             setNewTitle(task.title);
@@ -17,21 +18,16 @@ function Task({task, onEdit, onDelete, onUp, onDown}) {
         }
     };
 
-    const handleKeyDown = (e) => {
-        if (e.key === "Enter") {
-            handleSave(); 
-        }
-    };
-
     return (
         <li className={styles.taskItem}>
             {isEditing ? (
-                        <input type="text" className={styles.taskInput} value={newTitle} 
-                            onChange={(e) => {
-                                setNewTitle(e.target.value);
-                            }}
-                            onKeyDown={handleKeyDown}
-                        />
+                        <form onSubmit={handleSave}>
+                            <input type="text" className={styles.taskInput} value={newTitle} 
+                                onChange={(e) => {
+                                    setNewTitle(e.target.value);
+                                }}
+                            />
+                        </form>
                     ) : (
                             <p className={styles.taskTitle}>{task.title}</p>
                         )

@@ -13,10 +13,6 @@
   height: auto; 
 }
 
-.taskItem {
-  
-}
-
 .buttonContainer {
   display: flex;
   gap: 5px;
