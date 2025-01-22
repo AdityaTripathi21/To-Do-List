@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import connectDB from "./db.js";
 import taskRouter from "./routes/taskRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -12,6 +13,8 @@ const PORT = 3000;
 connectDB();
 
 app.use("/api/tasks", taskRouter);
+app.use("/api/users", userRouter);
+
 
 
 app.get("/", (req, res) => {

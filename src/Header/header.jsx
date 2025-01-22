@@ -1,7 +1,6 @@
 import styles from './header.module.css'
 import { Link } from 'react-router-dom'
 
-
 function Header() {
     return (<header className={styles.header}>
     <nav className={styles.nav}>
@@ -10,8 +9,12 @@ function Header() {
             <li>
                 <Link to="/" className={styles.link}>Home</Link>
             </li>
-            <li><a href="/" className={styles.link}>Login</a></li>
-            <li><a href="/" className={styles.link}>About</a></li>
+            <li>
+                <Link to="/login" className={styles.link}>Login</Link>
+            </li>
+            <li>
+                <Link to="/" className={styles.link}>About</Link>
+            </li>
         </ul>
     </nav>
     </header>);
