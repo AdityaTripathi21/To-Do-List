@@ -81,3 +81,11 @@
 .register a:hover {
     color: #0056b3; 
 }
+
+.register .error {
+    color: red;
+}
+
+.register .success {
+    color: rgb(0, 106, 255);
+}

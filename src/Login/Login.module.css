@@ -84,3 +84,13 @@
 .login a:hover {
     color: #0056b3;
 }
+
+.login .error {
+    color: red;
+}
+
+.login .success {
+    color: rgb(0, 106, 255);
+}
+
+
