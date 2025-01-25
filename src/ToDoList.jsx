@@ -9,7 +9,13 @@ function ToDoList() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/tasks");
+        const userID = localStorage.getItem('userID');
+
+        if (!userID) {
+            console.error("User ID not found in localStorage!");
+            return;
+        }
+        const response = await fetch(`http://localhost:3000/api/tasks/${userID}`);
         const data = await response.json();
         setTasks(data);
       } catch (error) {
@@ -23,12 +29,13 @@ function ToDoList() {
   function addTask(newTask) {
     const addTaskBackend = async () => {
       try {
+        const userID = localStorage.getItem("userID");
         const response = await fetch("http://localhost:3000/api/tasks", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({title: newTask})
+          body: JSON.stringify({title: newTask, userID})
         });
         const savedTask = await response.json();
         console.log(savedTask);

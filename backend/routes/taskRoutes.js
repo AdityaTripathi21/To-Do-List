@@ -1,12 +1,15 @@
 import express from "express";
 import Task from "../models/Task.js";
 
+
 const router = express.Router();
 
+
 // getting all tasks
-router.get("/", async (req, res) => {
+router.get("/:userID", async (req, res) => {
+    const { userID } = req.params;
     try {
-        const tasks = await Task.find();
+        const tasks = await Task.find({userID});
         res.json(tasks);
     }
     catch (error) {
@@ -18,13 +21,13 @@ router.get("/", async (req, res) => {
 
 // adding a new task
 router.post("/", async (req, res) => {
-    const {title} = req.body;
-    if (!title) {
-        return res.status(400).json({ message: "Title is required" });
+    const { title, userID } = req.body;
+    if (!title || !userID) {
+        return res.status(400).json({ message: "Title and userID is required" });
     }
 
     try {
-        const newTask = new Task({ title });
+        const newTask = new Task({title, userID});
         const savedTask = await newTask.save();
         res.status(201).json(savedTask);
     } catch (error) {

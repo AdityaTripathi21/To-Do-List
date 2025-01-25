@@ -25,6 +25,7 @@ function Login() {
             if (response.ok) {
                 setError('');
                 setIsSuccess(true);
+                localStorage.setItem('userID', data.userId);
                 setTimeout(() => {
                     navigate('/');
                 }, 1000);
