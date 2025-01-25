@@ -27,7 +27,7 @@ function Register() {
                 setError('');
                 setIsSuccess(true);
                 setTimeout(() => {
-                    navigate('/');
+                    navigate('/login');
                 }, 1000);
             }
             else {
@@ -59,7 +59,7 @@ function Register() {
             {error && <p className={styles.error}>{error}</p>} 
             {isSuccess && (
                 <p className={styles.success}>
-                    Registration successful! Redirecting to the homepage...
+                    Registration successful! Redirecting to login...
                 </p>
             )}
         </div>

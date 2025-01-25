@@ -59,7 +59,7 @@ function Login() {
             {error && <p className={styles.error}>{error}</p>} 
             {isSuccess && (
                 <p className={styles.success}>
-                    Registration successful! Redirecting to the homepage...
+                    Login successful! Redirecting to the homepage...
                 </p>
             )}
 
