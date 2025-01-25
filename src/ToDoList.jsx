@@ -2,20 +2,28 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header/header";
 import TaskInput from "./TaskInput/TaskInput";
 import TaskList from "./TaskList/TaskList";
+import { useNavigate } from "react-router-dom";
+
 
 function ToDoList() {
   const [tasks, setTasks] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const userID = localStorage.getItem('userID');
-
-        if (!userID) {
-            console.error("User ID not found in localStorage!");
-            return;
+        const token = localStorage.getItem('token'); 
+        if (!token) {
+          console.error("Token not found! Redirecting to login...");
+          navigate('/login'); 
+          return;
         }
-        const response = await fetch(`http://localhost:3000/api/tasks/${userID}`);
+        const response = await fetch(`http://localhost:3000/api/tasks`, {
+          method: "GET",
+          headers: {
+              "Authorization": `Bearer ${token}`, 
+          },
+      });
         const data = await response.json();
         setTasks(data);
       } catch (error) {
@@ -24,19 +32,20 @@ function ToDoList() {
     };
 
     fetchTasks();
-  }, []);
+  }, [navigate]);
 
   function addTask(newTask) {
     const addTaskBackend = async () => {
       try {
-        const userID = localStorage.getItem("userID");
+        const token = localStorage.getItem("token");
         const response = await fetch("http://localhost:3000/api/tasks", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify({title: newTask, userID})
-        });
+          body: JSON.stringify({ title: newTask }),
+      });
         const savedTask = await response.json();
         console.log(savedTask);
         setTasks([...tasks, savedTask]);
@@ -52,9 +61,13 @@ function ToDoList() {
   function deleteTask(taskID) {
     const deleteTaskBackend = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await fetch(`http://localhost:3000/api/tasks/${taskID}`, {
-          method: "DELETE",
-        });
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
         if (!response.ok) {
           throw new Error("Failed to delete task");
         }
@@ -70,17 +83,17 @@ function ToDoList() {
   }
 
   function editTask(taskID, updatedTitle) {
-    console.log("editTask called with:", { taskID, updatedTitle });
-
     const editTaskBackend = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/tasks/${taskID}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json", // Ensure JSON header
-                },
-                body: JSON.stringify({ title: updatedTitle }), // Stringify the body
-            });
+          const token = localStorage.getItem("token");
+          const response = await fetch(`http://localhost:3000/api/tasks/${taskID}`, {
+            method: "PATCH",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ title: updatedTitle }),
+        });
 
             if (!response.ok) {
                 throw new Error(`Failed to edit task: ${response.statusText}`);

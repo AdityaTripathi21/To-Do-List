@@ -1,13 +1,14 @@
 import express from "express";
 import Task from "../models/Task.js";
+import authenticateToken from "../middleware/authMiddleware.js";
 
 
 const router = express.Router();
 
 
 // getting all tasks
-router.get("/:userID", async (req, res) => {
-    const { userID } = req.params;
+router.get("/", authenticateToken, async (req, res) => {
+    const userID = req.user.userID;
     try {
         const tasks = await Task.find({userID});
         res.json(tasks);
@@ -20,8 +21,10 @@ router.get("/:userID", async (req, res) => {
 });
 
 // adding a new task
-router.post("/", async (req, res) => {
-    const { title, userID } = req.body;
+router.post("/", authenticateToken, async (req, res) => {
+    const userID = req.user.userID;
+    const {title} = req.body;
+
     if (!title || !userID) {
         return res.status(400).json({ message: "Title and userID is required" });
     }
@@ -39,27 +42,27 @@ router.post("/", async (req, res) => {
 });
 
 // getting a specific task
-router.get("/:id", async (req, res) => {
+router.get("/:id", authenticateToken, async (req, res) => {
+    const userID = req.user.userID;
     try {
         const task = await Task.findById(req.params.id);
-        if (!task)
-            return res.status(404).json({
-                message: "Task not found"
-            });
+        if (!task || task.userID.toString() !== userID) {
+            return res.status(404).json({ message: "Task not found or unauthorized" });
+        }
         res.json(task);
     } catch (error) {
-        return res.status(500).json({message: error.message});
+        return res.status(500).json({ message: error.message });
     }
 });
 
 // editing an existing task
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", authenticateToken, async (req, res) => {
+    const userID = req.user.userID;
     try {
-        console.log("PATCH request params:", req.params);
-        console.log("PATCH request body:", req.body);
         const task = await Task.findById(req.params.id);
-        if (!task)
-            return res.status(404).json({message: "Task not found"});
+        if (!task || task.userID.toString() !== userID) {
+            return res.status(404).json({ message: "Task not found or unauthorized" });
+        }
         const newTitle = req.body.title;
         if (newTitle === undefined || newTitle === null || newTitle.trim() === "") {
             return res.status(400).json({ message: "Title cannot be empty" });
@@ -73,11 +76,14 @@ router.patch("/:id", async (req, res) => {
 });
 
 // delete a task
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticateToken, async (req, res) => {
+    const userID = req.user.userID;
     try {
-        const task = await Task.findByIdAndDelete(req.params.id);
-        if (!task)
-            return res.status(404).json({message: "Task not found"});
+        const task = await Task.findById(req.params.id);
+        if (!task || task.userID.toString() !== userID) {
+            return res.status(404).json({ message: "Task not found or unauthorized" });
+        }
+        await Task.deleteOne({ _id: req.params.id });
         res.json({ message: "Task deleted successfully", task });
     } catch (error) {
         return res.status(500).json({message: error.message});

@@ -14,6 +14,10 @@ function Login() {
         e.preventDefault();
 
         try {
+            if (!username || !password) {
+                setError("Username and password are required.");
+                return;
+            }
             const response = await fetch('http://localhost:3000/api/users/login', {
                 method: "POST", 
                 headers: {
@@ -25,7 +29,7 @@ function Login() {
             if (response.ok) {
                 setError('');
                 setIsSuccess(true);
-                localStorage.setItem('userID', data.userId);
+                localStorage.setItem('token', data.token);
                 setTimeout(() => {
                     navigate('/');
                 }, 1000);
@@ -35,8 +39,8 @@ function Login() {
                 setIsSuccess(false);
             }
 
-        } catch {
-            console.error('Error during login:', error);
+        } catch (err) {
+            console.error('Error during login:', err);
             setIsSuccess(false);
             setError('Something went wrong. Please try again later.');
         }
