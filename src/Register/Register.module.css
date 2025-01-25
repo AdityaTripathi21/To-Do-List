@@ -1,0 +1,83 @@
+.register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border-radius: 16px; 
+    padding: 30px;
+    width: 100%;
+    max-width: 400px; 
+    margin: 50px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    text-align: center;
+}
+
+.register h1 {
+    font-size: 24px;
+    font-weight: 600; 
+    margin-bottom: 20px;
+}
+
+.register form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+    width: 100%;
+}
+
+.register label {
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #333; 
+}
+
+.register input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.register input:focus {
+    border-color: #007bff; 
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); 
+}
+
+.register button {
+    background: #007bff; 
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register button:hover {
+    background: #0056b3; 
+}
+
+.register p {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #555; 
+}
+
+.register a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.register a:hover {
+    color: #0056b3; 
+}
